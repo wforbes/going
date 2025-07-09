@@ -44,4 +44,9 @@ Go is a compiled language and it generally compiles much faster than other langu
 - [accessing first char in str (article)](https://tipseason.com/how-to-get-first-character-in-string-golang/)
 - [learning about interfaces](https://go.dev/doc/effective_go#interfaces)
 
-['Which Type Should I Use?'](https://www.boot.dev/lessons/98e60d90-0111-4626-a690-70124be1e0ba) : Basically just use the default Go types unless you're really concerned about performance. 
+['Which Type Should I Use?'](https://www.boot.dev/lessons/98e60d90-0111-4626-a690-70124be1e0ba) : Basically just use the default Go types unless you're really concerned about performance.
+
+Type sizes indicate Bits.
+
+The Go runtime causing Go apps to use more memory than C apps, less memory than the Java VM, and is mainly used for garbage collection to clean up unused memory.
+
