@@ -34,8 +34,13 @@ func bootDevLessons() {
 	bootDevC1L8()
 	// lesson 9 and 10 was info about Type selection and whatnot (in the readme)
 	bootDevC1L11()
-	// lesson 12 and 13 was info about compiled vs interpretted languages and the Go runtime
+	// lesson 12 and 13 was info about compiled vs interpreted languages
 	bootDevC1L14()
+	// lesson 15 and 16 was about the Go runtime and its memory usage compared to other languages
+	bootDevC1L17()
+	bootDevC1L18()
+	// lesson 19 compared Go's speed with other languages
+	bootDevC1L20()
 
 	printSectionEnd(true)
 }
@@ -134,13 +139,65 @@ func bootDevC1L14() {
 }
 
 func bootDevC1L17() {
-	printSectionStart("Chapter1: Lesson 17 - Constants", false)
+	printSectionStart("Chapter 1: Lesson 17 - Constants", false)
 	// Constants cant use the walrus operator and must be primative type
+	//(https://www.boot.dev/lessons/30beb009-2e1c-4cae-98b2-e9738101cd56)
 	const premiumPlanName = "Premium Plan"
 	const basicPlanName = "Basic Plan"
 	fmt.Println("plan:", premiumPlanName)
 	fmt.Println("plan:", basicPlanName)
-	printSectionEnd()
+	printSectionEnd(false)
+}
+
+func bootDevC1L18() {
+	printSectionStart("Chaper 1: Lesson 18 - Computed Constants", false)
+	// constants must be known at compile time, meaning they should be static
+	//	but the CAN be computed - as long as the computation can happen at compile time
+	//	That means function calls elsewhere and other operations wouldn't work
+	//	But operations using the base features of the language itself directly should
+	const secondsInMinute = 60
+	const minutesInHour = 60
+	const secondsInHour = secondsInMinute * minutesInHour // computed!
+	fmt.Println("number of seconds in an hour:", secondsInHour)
+	printSectionEnd(false)
+}
+
+func bootDevC1L20() {
+	printSectionStart("Chaper 1: Lesson 20 - Formatting Strings in Go", false)
+	// Go uses printf similarly to C.
+
+	// fmt.Sprintf returns the formatted string
+	str1 := fmt.Sprintf("I am %v years old", 37)
+	fmt.Println(str1)
+
+	// fmt.Printf prints a formatted string to standard out
+	// %v - a nice default that uses a primitive value in the formatting
+	fmt.Printf("I am %v years old", "many, many")
+	fmt.Println()
+
+	// %s - format a string
+	fmt.Printf("I am %s years old", "way too many")
+	fmt.Println()
+
+	// %d - format an integer
+	fmt.Printf("I am %d years old", 99)
+	fmt.Println()
+
+	// %f - format a float
+	fmt.Printf("I am %f years old", 10.523)
+	fmt.Println()
+
+	// %.2f - format a float rounded to 2 decimal places
+	fmt.Printf("I am %f years old", 10.523)
+	fmt.Println()
+
+	//Exercise:
+	const name = "Saul Goodman"
+	const openRate = 30.5
+	var msg string = fmt.Sprintf("Hi %s, your open rate is %.1f percent%s", name, openRate, "\n")
+	fmt.Print(msg)
+
+	printSectionEnd(false)
 }
 
 func Ternary(condition bool, ifTrue any, ifFalse any) any {
@@ -181,7 +238,7 @@ func printSeperator(char string) {
 		// get first character of the string and set that as the 'char' var
 		char = string(char[0]) // access first byte, then convert it to string?
 	}
-	width := 36
+	width := 60
 	var output string
 	// could also use range like:
 	// for range width {}
