@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"unicode/utf8"
+)
 
 func main() {
 	fmt.Println("Going: the act of learning to code with Go")
@@ -41,6 +44,9 @@ func bootDevLessons() {
 	bootDevC1L18()
 	// lesson 19 compared Go's speed with other languages
 	bootDevC1L20()
+	bootDevC1L21()
+	// lesson 22, 23, and 24 are just practice fixing bugs
+	bootDevC1L25()
 
 	printSectionEnd(true)
 }
@@ -197,6 +203,33 @@ func bootDevC1L20() {
 	var msg string = fmt.Sprintf("Hi %s, your open rate is %.1f percent%s", name, openRate, "\n")
 	fmt.Print(msg)
 
+	printSectionEnd(false)
+}
+
+func bootDevC1L21() {
+	printSectionStart("Chapter 1: Lesson 21 - Runes and String Encoding", false)
+	// notes in the readme under 'Lesson 21 notes' section
+	// (https://www.boot.dev/lessons/4ae3622b-70b8-45f9-84ee-9822e44c0fbc)
+	const name = "🐻"
+	fmt.Printf("constant 'name' byte length: %d\n", len(name))
+	fmt.Printf("constant 'name' rune length: %d\n", utf8.RuneCountInString(name))
+	fmt.Println("___")
+	fmt.Printf("Hi %s, so good to have you back at the boneyard", name)
+	printSectionEnd(false)
+}
+
+func bootDevC1L25() {
+	printSectionStart("Chapter 1: Lesson 25 - Format Practice", false)
+	fname := "Dalinar"
+	lname := "Kholin"
+	age := 45
+	messageRate := 0.5
+	isSubscribed := false
+	message := "Sometimes a hypocrite is nothing more than a man in the process of changing."
+
+	userLog := fmt.Sprintf("Name: %s %s, Age: %d, Rate: %.1f, Is Subscribed: %t, Message: %s", fname, lname, age, messageRate, isSubscribed, message)
+
+	fmt.Println(userLog)
 	printSectionEnd(false)
 }
 
