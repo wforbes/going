@@ -13,6 +13,11 @@ var learnGoChapters = []bootdev.Chapter{
 		Title:  "Conditionals",
 		Runner: runChapter2Lessons,
 	},
+	{
+		Number: 3,
+		Title:  "Functions",
+		Runner: runChapter3Lessons,
+	},
 }
 
 var LearnGoCourse = bootdev.Course{
