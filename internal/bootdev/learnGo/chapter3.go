@@ -18,6 +18,7 @@ func runChapter3Lessons() {
 	// and returns an int. The C style requires you to read it in-out, where Go can be read right-left
 	// 6:(https://www.boot.dev/lessons/221e3837-4eba-4171-a3fc-b32a1b3cd423)
 	chapter3Lesson7()
+	chapter3Lesson8()
 }
 
 func chapter3Lesson1() {
@@ -90,6 +91,7 @@ func getMonthlyPrice(tier string) int {
 	return 0
 }
 
+// go test -v ./internal/bootdev/learnGo -run=TestChapter3Lesson7
 func chapter3Lesson7() {
 	utils.PrintSectionStart("Chapter 3: Lesson 7 - Passing Variables by Value", false)
 	//(https://www.boot.dev/lessons/351c4674-1c31-4148-b98f-1179dbcaac81)
@@ -110,17 +112,58 @@ func chapter3Lesson7() {
 
 	utils.PrintSectionEnd(false)
 }
-
 func increment(x int) {
 	x++
 }
-
 func monthlyBillIncrease(costPerSend, numLastMonth, numThisMonth int) int {
 	var lastMonthBill int = getBillForMonth(costPerSend, numLastMonth)
 	var thisMonthBill int = getBillForMonth(costPerSend, numThisMonth)
 	return thisMonthBill - lastMonthBill
 }
-
 func getBillForMonth(costPerSend, messagesSent int) int {
 	return costPerSend * messagesSent
+}
+
+// go test -v ./internal/bootdev/learnGo -run=TestChapter3Lesson8
+func chapter3Lesson8() {
+	utils.PrintSectionStart("Chapter 3: Lesson 8 - Ignoring Return Values", false)
+	//(https://www.boot.dev/lessons/185e65bf-8d3a-4419-abd0-258a457f0b88)
+
+	fmt.Println(`Example:
+	getPoint() returns 3 and 4 ...
+	but if either of these values are set into '_' var
+	in the caller that value will be ignored and inaccessible!`)
+
+	x, _ := getPoint()
+
+	fmt.Printf(`In the statement:
+	x, _ := getPoint()
+	the getPoint() func returned %v into the 'x' variable
+	but ignored its 2nd return value by using '_' variable name
+	like... you literally can't use _ in the caller`, x)
+	fmt.Println(`Reasoning:
+	You can avoid compiler errors like 'declared but not used'
+	when your specific usecase of a function doesn't need one
+	of the return values!`)
+
+	utils.PrintSectionEnd(false)
+}
+func getPoint() (x int, y int) {
+	return 3, 4
+}
+func getProductMessage(tier string) string {
+	quantityMsg, priceMsg, _ := getProductInfo(tier)
+	return "You get " + quantityMsg + " for " + priceMsg + "."
+}
+
+func getProductInfo(tier string) (string, string, string) {
+	if tier == "basic" {
+		return "1,000 texts per month", "$30 per month", "most popular"
+	} else if tier == "premium" {
+		return "50,000 texts per month", "$60 per month", "best value"
+	} else if tier == "enterprise" {
+		return "unlimited texts per month", "$100 per month", "customizable"
+	} else {
+		return "", "", ""
+	}
 }

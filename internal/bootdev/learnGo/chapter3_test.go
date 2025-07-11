@@ -89,3 +89,42 @@ Pass
 	fmt.Printf("%d passed, %d failed\n", passCount, failCount)
 
 }
+
+func TestChapter3Lesson8(t *testing.T) {
+	type testCase struct {
+		tier     string
+		expected string
+	}
+	testCases := []testCase{
+		{"basic", "You get 1,000 texts per month for $30 per month."},
+		{"premium", "You get 50,000 texts per month for $60 per month."},
+		{"enterprise", "You get unlimited texts per month for $100 per month."},
+	}
+
+	passCount := 0
+	failCount := 0
+
+	for _, test := range testCases {
+		output := getProductMessage(test.tier)
+		if output != test.expected {
+			failCount++
+			t.Errorf(`---------------------------------
+Inputs:     (%v)
+Expecting:  %v
+Actual:     %v
+Fail
+`, test.tier, test.expected, output)
+		} else {
+			passCount++
+			fmt.Printf(`---------------------------------
+Inputs:     (%v)
+Expecting:  %v
+Actual:     %v
+Pass
+`, test.tier, test.expected, output)
+		}
+	}
+
+	fmt.Println("---------------------------------")
+	fmt.Printf("%d passed, %d failed\n", passCount, failCount)
+}
