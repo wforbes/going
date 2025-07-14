@@ -19,6 +19,11 @@ func runChapter3Lessons() {
 	// 6:(https://www.boot.dev/lessons/221e3837-4eba-4171-a3fc-b32a1b3cd423)
 	chapter3Lesson7()
 	chapter3Lesson8()
+	chapter3Lesson9()
+	// lesson 10 and 11 were questions about named returns vs naked returns
+	//	use named returns when there are many return values as it helps self-document the func
+	//	use naked returns when the function is short and relatively simple
+	chapter3Lesson12()
 }
 
 func chapter3Lesson1() {
@@ -106,9 +111,9 @@ func chapter3Lesson7() {
 
 	//EXERCISE: {2, 89, 102, 26}  {2, 98, 104, 12}
 	increase1 := monthlyBillIncrease(2, 89, 102)
-	fmt.Printf("Monthly bill increased by %d (from %d to %d) the last month, costing %d per 'send'!", increase1, 89, 102, 2)
+	fmt.Printf("Monthly bill increased by %d (from %d to %d) the last month, costing %d per 'send'!\n", increase1, 89, 102, 2)
 	increase2 := monthlyBillIncrease(2, 98, 104)
-	fmt.Printf("Monthly bill increased by %d (from %d to %d) the last month, costing %d per 'send'!", increase2, 89, 102, 2)
+	fmt.Printf("Monthly bill increased by %d (from %d to %d) the last month, costing %d per 'send'!\n", increase2, 89, 102, 2)
 
 	utils.PrintSectionEnd(false)
 }
@@ -166,4 +171,98 @@ func getProductInfo(tier string) (string, string, string) {
 	} else {
 		return "", "", ""
 	}
+}
+
+func chapter3Lesson9() {
+	utils.PrintSectionStart("Chapter 3: Lesson 9 - Named Return Values", false)
+	//(https://www.boot.dev/lessons/bfd3eabd-58f5-4fe1-b59d-876b83bf52e8)
+	// EXAMPLE: these two functions are the effectively the same:
+	// 	getCoords1 defines the named return values of x and y
+	//	which causes them to be initialized as 0
+	//	and automatically returned if the return statement is empty (or naked)
+	getCoords1()
+	//	getCoords2 defines the return type - two unnamed ints
+	//	which means they need to be initialized to be given a name
+	//	and then returned by those names
+	getCoords2()
+	// use named returns when there are many values being returned
+	//	use naked returns when the function is short and simple
+
+	//EXERCISE: in yearsUntilEvents func, naming the return values
+	//	allows for being able to immediately work with them as if
+	//	they were initialized to 0, and then the empty return statement
+	//	results in the named return values in the signature to be returned
+	age := 13
+	adult, drinking, carRental := yearsUntilEvents(age)
+	fmt.Printf("You're %d years old? You'll be an adult in %d years!\n", age, adult)
+	fmt.Printf("You're %d years old? You'll be able to drink in %d years!\n", age, drinking)
+	fmt.Printf("You're %d years old? You'll be able to rent a car in %d years!\n", age, carRental)
+
+	utils.PrintSectionEnd(false)
+}
+func getCoords1() (x, y int) {
+	return
+}
+func getCoords2() (int, int) {
+	var x int
+	var y int
+	return x, y
+}
+func yearsUntilEvents(age int) (yearsUntilAdult, yearsUntilDrinking, yearsUntilCarRental int) {
+	yearsUntilAdult = 18 - age
+	if yearsUntilAdult < 0 {
+		yearsUntilAdult = 0
+	}
+	yearsUntilDrinking = 21 - age
+	if yearsUntilDrinking < 0 {
+		yearsUntilDrinking = 0
+	}
+	yearsUntilCarRental = 25 - age
+	if yearsUntilCarRental < 0 {
+		yearsUntilCarRental = 0
+	}
+	return
+}
+
+func chapter3Lesson12() {
+	utils.PrintSectionStart("Chapter 3: Lesson 12 - Explicit Returns", false)
+	//(https://www.boot.dev/lessons/067df3cb-a240-4f10-8159-b04a737e5002)
+	fmt.Println(`Even when named return values are used, we can still explicitly return values if we want
+func getCoords() (x, y int) {
+	return x, y // this is explicit
+}
+
+The return values can even be overwritten
+func getCoords() (x, y int) {
+    return 5, 6 // this is explicit, x and y are NOT returned
+}
+
+Or if we want the return values defined in the function signature we can use naked return
+func getCoords() (x, y int) {
+    return // implicitly returns x and y
+}`)
+	fmt.Println("")
+	age := 17
+	adult, drinking, carRental := yearsUntilEvents12(age)
+	fmt.Printf("You're %d years old? You'll be an adult in %d years!\n", age, adult)
+	fmt.Printf("You're %d years old? You'll be able to drink in %d years!\n", age, drinking)
+	fmt.Printf("You're %d years old? You'll be able to rent a car in %d years!\n", age, carRental)
+
+	utils.PrintSectionEnd(false)
+}
+
+func yearsUntilEvents12(age int) (yearsUntilAdult, yearsUntilDrinking, yearsUntilCarRental int) {
+	yearsUntilAdult = 18 - age
+	if yearsUntilAdult < 0 {
+		yearsUntilAdult = 0
+	}
+	yearsUntilDrinking = 21 - age
+	if yearsUntilDrinking < 0 {
+		yearsUntilDrinking = 0
+	}
+	yearsUntilCarRental = 25 - age
+	if yearsUntilCarRental < 0 {
+		yearsUntilCarRental = 0
+	}
+	return yearsUntilAdult, yearsUntilDrinking, yearsUntilCarRental //explicitly returning the values
 }

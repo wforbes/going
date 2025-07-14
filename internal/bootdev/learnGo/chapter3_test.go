@@ -128,3 +128,92 @@ Pass
 	fmt.Println("---------------------------------")
 	fmt.Printf("%d passed, %d failed\n", passCount, failCount)
 }
+
+func TestChapter3Lesson9(t *testing.T) {
+	type testCase struct {
+		age                   int
+		exYearsUntilAdult     int
+		exYearsUntilDrinking  int
+		exYearsUntilCarRental int
+	}
+
+	testCases := []testCase{
+		{4, 14, 17, 21},
+		{18, 0, 3, 7},
+		{22, 0, 0, 3},
+		{25, 0, 0, 0},
+	}
+
+	passCount := 0
+	failCount := 0
+
+	for _, test := range testCases {
+		yearsUntilAdult, yearsUntilDrinking, yearsUntilCarRental := yearsUntilEvents(test.age)
+		if yearsUntilAdult != test.exYearsUntilAdult ||
+			yearsUntilDrinking != test.exYearsUntilDrinking ||
+			yearsUntilCarRental != test.exYearsUntilCarRental {
+			failCount++
+			t.Errorf(`---------------------------------
+Inputs:     (%v)
+Expecting:  (%v, %v, %v)
+Actual:     (%v, %v, %v)
+Fail
+`, test.age, test.exYearsUntilAdult, test.exYearsUntilDrinking, test.exYearsUntilCarRental, yearsUntilAdult, yearsUntilDrinking, yearsUntilCarRental)
+		} else {
+			passCount++
+			fmt.Printf(`---------------------------------
+Inputs:     (%v)
+Expecting:  (%v, %v, %v)
+Actual:     (%v, %v, %v)
+Pass
+`, test.age, test.exYearsUntilAdult, test.exYearsUntilDrinking, test.exYearsUntilCarRental, yearsUntilAdult, yearsUntilDrinking, yearsUntilCarRental)
+		}
+	}
+	fmt.Println("---------------------------------")
+	fmt.Printf("%d passed, %d failed\n", passCount, failCount)
+}
+
+func TestChapter3Lesson12(t *testing.T) {
+	type testCase struct {
+		age                   int
+		exYearsUntilAdult     int
+		exYearsUntilDrinking  int
+		exYearsUntilCarRental int
+	}
+
+	testCases := []testCase{
+		{4, 14, 17, 21},
+		{18, 0, 3, 7},
+		{22, 0, 0, 3},
+		{25, 0, 0, 0},
+		{35, 0, 0, 0},
+	}
+
+	passCount := 0
+	failCount := 0
+
+	for _, test := range testCases {
+		yearsUntilAdult, yearsUntilDrinking, yearsUntilCarRental := yearsUntilEvents(test.age)
+		if yearsUntilAdult != test.exYearsUntilAdult ||
+			yearsUntilDrinking != test.exYearsUntilDrinking ||
+			yearsUntilCarRental != test.exYearsUntilCarRental {
+			failCount++
+			t.Errorf(`---------------------------------
+Inputs:     (%v)
+Expecting:  (%v, %v, %v)
+Actual:     (%v, %v, %v)
+Fail
+`, test.age, test.exYearsUntilAdult, test.exYearsUntilDrinking, test.exYearsUntilCarRental, yearsUntilAdult, yearsUntilDrinking, yearsUntilCarRental)
+		} else {
+			passCount++
+			fmt.Printf(`---------------------------------
+Inputs:     (%v)
+Expecting:  (%v, %v, %v)
+Actual:     (%v, %v, %v)
+Pass
+`, test.age, test.exYearsUntilAdult, test.exYearsUntilDrinking, test.exYearsUntilCarRental, yearsUntilAdult, yearsUntilDrinking, yearsUntilCarRental)
+		}
+	}
+	fmt.Println("---------------------------------")
+	fmt.Printf("%d passed, %d failed\n", passCount, failCount)
+}

@@ -60,3 +60,9 @@ Go has a special type called `rune` which is an alias for `int32`.. which is lar
 When you need to work with individual characters in a string, you should use the `rune` type. It breaks strings up into their individual characters, which can be more than one byte long.
 
 We can include a wide variety of unicode characters in our strings, such as emojis and Chinese characters, and Go will handle them just fine.
+
+### Restructuring into seperate files
+
+Now that I'm done with the first chapter of bootdev 'Learn Go' course I'm seeing that I should restructure the project to better organize things.
+This feels like an opportunity to figure out how Go handles external files and imports and whatnot.
+So I ended up using 'cmd' directory ... (continuing this in a blog post, hmmm)
