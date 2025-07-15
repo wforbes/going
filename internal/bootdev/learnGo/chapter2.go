@@ -6,14 +6,14 @@ import (
 )
 
 func runChapter2Lessons() {
-	chapter2Lesson1()
-	chapter2Lesson2()
+	c2_l1()
+	c2_l2()
 	// lesson 3 is just a question related to lesson 2
-	chapter2Lesson4()
-	chapter2lesson5()
+	c2_l4()
+	c2_l5()
 }
 
-func chapter2Lesson1() {
+func c2_l1() {
 	utils.PrintSectionStart("Chapter 2: Lesson 1 - Conditionals", false)
 	//(https://www.boot.dev/lessons/e210dea3-0c70-41c1-871b-4aa5b3658917)
 
@@ -30,7 +30,7 @@ func chapter2Lesson1() {
 	utils.PrintSectionEnd(false)
 }
 
-func chapter2Lesson2() {
+func c2_l2() {
 	utils.PrintSectionStart("Chapter 2: Lesson 2 - The Initial Statement of an If Block", false)
 	//(https://www.boot.dev/lessons/84e5481a-ca9c-40a3-ad0f-64d275226859)
 
@@ -46,7 +46,7 @@ func chapter2Lesson2() {
 	utils.PrintSectionEnd(false)
 }
 
-func chapter2Lesson4() {
+func c2_l4() {
 	utils.PrintSectionStart("Chapter 2: Lesson 4 - Switch", false)
 	//(https://www.boot.dev/lessons/f8b2fcea-078b-41be-b59b-8bece5ae923b)
 	plan := "basic"
@@ -76,7 +76,7 @@ func billingCost(plan string) float64 {
 	}
 }
 
-func chapter2lesson5() {
+func c2_l5() {
 	utils.PrintSectionStart("Chapter 2: Lesson 5 - Calculate Balance", false)
 	//(https://www.boot.dev/lessons/f6c53b4a-3bfe-49ca-8733-aa15c19fe7b1)
 

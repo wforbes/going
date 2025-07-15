@@ -7,9 +7,9 @@ import (
 )
 
 func runChapter1Lessons() {
-	chapter1Lesson2()
-	chapter1Lesson3()
-	chapter1Lesson4()
+	c1_l2()
+	c1_l3()
+	c1_l4()
 	/* boot.dev Chapter 1, Lesson 5
 	This is a multi-line comment,
 	same as it's always been
@@ -28,22 +28,22 @@ func runChapter1Lessons() {
 	/* boot.dev CH1L7 - Go compiles faster than other compiled languages, but runs slower
 	than others like Rust, C, Zig. Though since its a compiled language it runs faster
 	than interpreted languages like python, js, and ruby. */
-	chapter1Lesson8()
+	c1_l8()
 	// lesson 9 and 10 was info about Type selection and whatnot (in the readme)
-	chapter1Lesson11()
+	c1_l11()
 	// lesson 12 and 13 was info about compiled vs interpreted languages
-	chapter1Lesson14()
+	c1_l14()
 	// lesson 15 and 16 was about the Go runtime and its memory usage compared to other languages
-	chapter1Lesson17()
-	chapter1Lesson18()
+	c1_l17()
+	c1_l18()
 	// lesson 19 compared Go's speed with other languages
-	chapter1Lesson20()
-	chapter1Lesson21()
+	c1_l20()
+	c1_l21()
 	// lesson 22, 23, and 24 are just practice fixing bugs
-	chapter1Lesson25()
+	c1_l25()
 }
 
-func chapter1Lesson2() {
+func c1_l2() {
 	utils.PrintSectionStart("Chapter 1: Lesson 2 - Basic Variables", false)
 	// initializing variables with zero values
 	// (https://www.boot.dev/lessons/a1eae01c-0a40-47d5-9b98-94fe48199073)
@@ -56,7 +56,7 @@ func chapter1Lesson2() {
 	utils.PrintSectionEnd(false)
 }
 
-func chapter1Lesson3() {
+func c1_l3() {
 	utils.PrintSectionStart("Chapter 1: Lesson 3 - Short Variable Declarations", false)
 	// using the walrus operator to declare new variables and assign values
 	// (can't be used outside of function scope)
@@ -68,7 +68,7 @@ func chapter1Lesson3() {
 	utils.PrintSectionEnd(false)
 }
 
-func chapter1Lesson4() {
+func c1_l4() {
 	utils.PrintSectionStart("Chapter 1: Lesson 4 - Why Go?", false)
 	// casting a variable to a different type and using it in an expression
 	// (https://www.boot.dev/lessons/73145333-7245-4643-ae6b-e65a5f719906)
@@ -79,7 +79,7 @@ func chapter1Lesson4() {
 	utils.PrintSectionEnd(false)
 }
 
-func chapter1Lesson8() {
+func c1_l8() {
 	utils.PrintSectionStart("Chapter 1: Lesson 8 - Type Sizes", false)
 	// whole numbers
 	//	int int8 int16 int32 int64
@@ -110,7 +110,7 @@ func chapter1Lesson8() {
 	utils.PrintSectionEnd(false)
 }
 
-func chapter1Lesson11() {
+func c1_l11() {
 	utils.PrintSectionStart("Chapter 1: Lesson 11 - Go Is Statically Typed", false)
 	// Go is Statically typed
 	// (https://www.boot.dev/lessons/b0807eaa-38e5-4d3f-8359-ffe5e1c9ae7e)
@@ -127,7 +127,7 @@ func chapter1Lesson11() {
 	utils.PrintSectionEnd(false)
 }
 
-func chapter1Lesson14() {
+func c1_l14() {
 	utils.PrintSectionStart("Chapter 1: Lesson 14 - Same Line Declarations", false)
 	// You can declare multiple variables on the same line,
 	// 	the variable identifiers just need to appear in the same order as the init values
@@ -137,7 +137,7 @@ func chapter1Lesson14() {
 	utils.PrintSectionEnd(false)
 }
 
-func chapter1Lesson17() {
+func c1_l17() {
 	utils.PrintSectionStart("Chapter 1: Lesson 17 - Constants", false)
 	// Constants cant use the walrus operator and must be primative type
 	//(https://www.boot.dev/lessons/30beb009-2e1c-4cae-98b2-e9738101cd56)
@@ -148,7 +148,7 @@ func chapter1Lesson17() {
 	utils.PrintSectionEnd(false)
 }
 
-func chapter1Lesson18() {
+func c1_l18() {
 	utils.PrintSectionStart("Chaper 1: Lesson 18 - Computed Constants", false)
 	// constants must be known at compile time, meaning they should be static
 	//	but the CAN be computed - as long as the computation can happen at compile time
@@ -161,7 +161,7 @@ func chapter1Lesson18() {
 	utils.PrintSectionEnd(false)
 }
 
-func chapter1Lesson20() {
+func c1_l20() {
 	utils.PrintSectionStart("Chaper 1: Lesson 20 - Formatting Strings in Go", false)
 	// Go uses printf similarly to C.
 
@@ -199,7 +199,7 @@ func chapter1Lesson20() {
 	utils.PrintSectionEnd(false)
 }
 
-func chapter1Lesson21() {
+func c1_l21() {
 	utils.PrintSectionStart("Chapter 1: Lesson 21 - Runes and String Encoding", false)
 	// notes in the readme under 'Lesson 21 notes' section
 	// (https://www.boot.dev/lessons/4ae3622b-70b8-45f9-84ee-9822e44c0fbc)
@@ -211,7 +211,7 @@ func chapter1Lesson21() {
 	utils.PrintSectionEnd(false)
 }
 
-func chapter1Lesson25() {
+func c1_l25() {
 	utils.PrintSectionStart("Chapter 1: Lesson 25 - Format Practice", false)
 	fname := "Dalinar"
 	lname := "Kholin"
