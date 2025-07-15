@@ -6,9 +6,9 @@ import (
 )
 
 func runChapter3Lessons() {
-	lesson1()
-	lesson2()
-	lesson3()
+	c3_l1()
+	c3_l2()
+	c3_l3()
 	//lesson 4 and 5 talked about the difference in syntax from C family languages
 	//	with quiz questions
 	//4:(https://www.boot.dev/lessons/afb405db-9785-4444-94f5-e76866b5b6b7)
@@ -17,19 +17,19 @@ func runChapter3Lessons() {
 	// where the function takes a func with two params as the first, an int as the second
 	// and returns an int. The C style requires you to read it in-out, where Go can be read right-left
 	// 6:(https://www.boot.dev/lessons/221e3837-4eba-4171-a3fc-b32a1b3cd423)
-	lesson7()
-	lesson8()
-	lesson9()
+	c3_l7()
+	c3_l8()
+	c3_l9()
 	// lesson 10 and 11 were questions about named returns vs naked returns
 	//	use named returns when there are many return values as it helps self-document the func
 	//	use naked returns when the function is short and relatively simple
-	lesson12()
+	c3_l12()
 	// lesson 13 and 14 were questions about guard clauses aka early returns
-	lesson15()
-	lesson16()
+	c3_l15()
+	c3_l16()
 }
 
-func lesson1() {
+func c3_l1() {
 	utils.PrintSectionStart("Chapter 3: Lesson 1 - Functions", false)
 	//(https://www.boot.dev/lessons/9aedf839-7d94-43f7-82d0-1d27e5d0b79c)
 
@@ -46,7 +46,7 @@ func concat(s1 string, s2 string) string {
 	return s1 + s2
 }
 
-func lesson2() {
+func c3_l2() {
 	utils.PrintSectionStart("Chapter 3: Lesson 2 - Multiple Parameters", false)
 	//(https://www.boot.dev/lessons/7f503d3f-7425-496a-b50a-70815384a00c)
 	// when multiple parameters are of the same type
@@ -74,7 +74,7 @@ func manyParameters(a, b string, c int, d string, e, f int, g string) {
 //		go test -v ./internal/bootdev/learnGo -run=TestChapter3Lesson3
 //	Or to run the whole learnGo unit test suite it would be:
 //		go test -v ./internal/bootdev/learnGo
-func lesson3() {
+func c3_l3() {
 	utils.PrintSectionStart("Chapter 3: Lesson 3 - Unit Test Lessons", false)
 	// (https://www.boot.dev/lessons/a729ff01-7620-45a6-b330-7efb72bda67b)
 	fmt.Println(getMonthlyPrice("basic"))
@@ -100,7 +100,7 @@ func getMonthlyPrice(tier string) int {
 }
 
 // go test -v ./internal/bootdev/learnGo -run=TestChapter3Lesson7
-func lesson7() {
+func c3_l7() {
 	utils.PrintSectionStart("Chapter 3: Lesson 7 - Passing Variables by Value", false)
 	//(https://www.boot.dev/lessons/351c4674-1c31-4148-b98f-1179dbcaac81)
 	// Variables are passed into functions by value, not by reference
@@ -133,7 +133,7 @@ func getBillForMonth(costPerSend, messagesSent int) int {
 }
 
 // go test -v ./internal/bootdev/learnGo -run=TestChapter3Lesson8
-func lesson8() {
+func c3_l8() {
 	utils.PrintSectionStart("Chapter 3: Lesson 8 - Ignoring Return Values", false)
 	//(https://www.boot.dev/lessons/185e65bf-8d3a-4419-abd0-258a457f0b88)
 
@@ -176,7 +176,7 @@ func getProductInfo(tier string) (string, string, string) {
 	}
 }
 
-func lesson9() {
+func c3_l9() {
 	utils.PrintSectionStart("Chapter 3: Lesson 9 - Named Return Values", false)
 	//(https://www.boot.dev/lessons/bfd3eabd-58f5-4fe1-b59d-876b83bf52e8)
 	// EXAMPLE: these two functions are the effectively the same:
@@ -227,7 +227,7 @@ func yearsUntilEvents(age int) (yearsUntilAdult, yearsUntilDrinking, yearsUntilC
 	return
 }
 
-func lesson12() {
+func c3_l12() {
 	utils.PrintSectionStart("Chapter 3: Lesson 12 - Explicit Returns", false)
 	//(https://www.boot.dev/lessons/067df3cb-a240-4f10-8159-b04a737e5002)
 	fmt.Println(`Even when named return values are used, we can still explicitly return values if we want
@@ -270,7 +270,7 @@ func yearsUntilEvents12(age int) (yearsUntilAdult, yearsUntilDrinking, yearsUnti
 	return yearsUntilAdult, yearsUntilDrinking, yearsUntilCarRental //explicitly returning the values
 }
 
-func lesson15() {
+func c3_l15() {
 	utils.PrintSectionStart("Chapter 3: Lesson 15 - Functions As Values", false)
 	// (https://www.boot.dev/lessons/3c0f1141-9d3e-4acd-bfe8-1ebf1b44121e)
 	fmt.Println(`Functions are just another type, so they can be passed as values into other functions
@@ -296,7 +296,7 @@ func addQuestionMark(s string) string {
 	return s + "?"
 }
 
-func lesson16() {
+func c3_l16() {
 	utils.PrintSectionStart("Chapter 3: Lesson 16 - Anonymous Functions", false)
 	//(https://www.boot.dev/lessons/b79955b7-eccf-4816-8490-1dd700f13c8e)
 	fmt.Println(`Anon functions do not have a name and are used when defining a func that will only be used once

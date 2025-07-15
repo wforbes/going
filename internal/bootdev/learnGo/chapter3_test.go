@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestLesson3(t *testing.T) {
+func Test_c3_l3(t *testing.T) {
 	type testCase struct {
 		tier     string
 		expected int
@@ -46,7 +46,7 @@ Pass
 	fmt.Printf("%d passed, %d failed\n", passCount, failCount)
 }
 
-func TestLesson7(t *testing.T) {
+func Test_c3_l7(t *testing.T) {
 	type testCase struct {
 		costPerSend  int
 		numLastMonth int
@@ -90,7 +90,7 @@ Pass
 
 }
 
-func TestLesson8(t *testing.T) {
+func Test_c3_l8(t *testing.T) {
 	type testCase struct {
 		tier     string
 		expected string
@@ -129,7 +129,7 @@ Pass
 	fmt.Printf("%d passed, %d failed\n", passCount, failCount)
 }
 
-func TestLesson9(t *testing.T) {
+func Test_c3_l9(t *testing.T) {
 	type testCase struct {
 		age                   int
 		exYearsUntilAdult     int
@@ -173,7 +173,7 @@ Pass
 	fmt.Printf("%d passed, %d failed\n", passCount, failCount)
 }
 
-func TestLesson12(t *testing.T) {
+func Test_c3_l12(t *testing.T) {
 	type testCase struct {
 		age                   int
 		exYearsUntilAdult     int
@@ -218,7 +218,7 @@ Pass
 	fmt.Printf("%d passed, %d failed\n", passCount, failCount)
 }
 
-func TestLesson15(t *testing.T) {
+func Test_c3_l15(t *testing.T) {
 	type testCase struct {
 		message       string
 		formatter     func(string) string
