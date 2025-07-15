@@ -18,6 +18,11 @@ var learnGoChapters = []bootdev.Chapter{
 		Title:  "Functions",
 		Runner: runChapter3Lessons,
 	},
+	{
+		Number: 4,
+		Title:  "Structs",
+		Runner: runChapter4Lessons,
+	},
 }
 
 var LearnGoCourse = bootdev.Course{
