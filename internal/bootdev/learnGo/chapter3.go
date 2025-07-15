@@ -24,6 +24,8 @@ func runChapter3Lessons() {
 	//	use named returns when there are many return values as it helps self-document the func
 	//	use naked returns when the function is short and relatively simple
 	chapter3Lesson12()
+	// lesson 13 and 14 were questions about guard clauses aka early returns
+	chapter3Lesson15()
 }
 
 func chapter3Lesson1() {
@@ -265,4 +267,31 @@ func yearsUntilEvents12(age int) (yearsUntilAdult, yearsUntilDrinking, yearsUnti
 		yearsUntilCarRental = 0
 	}
 	return yearsUntilAdult, yearsUntilDrinking, yearsUntilCarRental //explicitly returning the values
+}
+
+func chapter3Lesson15() {
+	utils.PrintSectionStart("Chapter 3: Lesson 15 - Functions As Values", false)
+	// (https://www.boot.dev/lessons/3c0f1141-9d3e-4acd-bfe8-1ebf1b44121e)
+	fmt.Println(`Functions are just another type, so they can be passed as values into other functions
+- This allows for a function to take a function as a parameter and call it without having to know its implementation details
+- It allows the function being passed in to be used interchangably with different functions`)
+	fmt.Println()
+
+	// The exercise asks us to create the format function, applying the 'formatter' func param 3 times and printing the result
+	result := reformat("This is the message", addQuestionMark)
+	fmt.Println(result)
+
+	utils.PrintSectionEnd(false)
+}
+
+func reformat(message string, formatter func(string) string) string {
+	for range 3 {
+		message = formatter(message)
+	}
+	return "TEXTIO: " + message
+}
+
+// the unit test for chapter3Lesson15 has more functions to use as formatter
+func addQuestionMark(s string) string {
+	return s + "?"
 }
