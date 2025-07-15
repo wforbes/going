@@ -25,8 +25,11 @@ func runChapter3Lessons() {
 	//	use naked returns when the function is short and relatively simple
 	c3_l12()
 	// lesson 13 and 14 were questions about guard clauses aka early returns
-	c3_l15()
-	c3_l16()
+	c3_l15() // functions as values
+	c3_l16() // anon functions
+	c3_l17() // defer
+	c3_l18() // block scope
+	c3_l19() // 'Processing Orders'
 }
 
 func c3_l1() {
@@ -337,4 +340,168 @@ func printCostReport(costCalculator func(string) int, message string) {
 	cost := costCalculator(message)
 	fmt.Printf(`Message: "%s" Cost: %v cents`, message, cost)
 	fmt.Println()
+}
+
+func c3_l17() {
+	utils.PrintSectionStart("Chapter3: Lesson 17 - Defer", false)
+	//(https://www.boot.dev/lessons/8ea7016d-a2fd-4900-b10d-178d6e8b2ecb)
+	fmt.Println(`The 'defer' keyword allows a function to be executed automatically just before its enclosing function returns
+The deferred call's arguments are evaluated immediately, but the function call is not executed until the surrounding function returns.
+
+Deferred functions are typically used to clean up resources that are no longer being used. Often to close database connections, file handlers, etc.`)
+	fmt.Println()
+
+	// The exercise asked to place a defer statement in bootup() so that no matter where it returns,
+	// it should print the 'bootup done' message before it returns
+	testBootup(true, true)
+	testBootup(false, true)
+	testBootup(true, false)
+	testBootup(false, false)
+
+	utils.PrintSectionEnd(false)
+}
+func bootup() {
+	ok := connectToDB()
+	defer fmt.Println("TEXTIO BOOTUP DONE")
+	if !ok {
+		return
+	}
+	ok = connectToPaymentProvider()
+	if !ok {
+		return
+	}
+	fmt.Println("All systems ready!")
+}
+
+var shouldConnectToDB = true
+
+func connectToDB() bool {
+	fmt.Println("Connecting to database...")
+	if shouldConnectToDB {
+		fmt.Println("Connected!")
+		return true
+	}
+	fmt.Println("Connection failed")
+	return false
+}
+
+var shouldConnectToPaymentProvider = true
+
+func connectToPaymentProvider() bool {
+	fmt.Println("Connecting to payment provider...")
+	if shouldConnectToPaymentProvider {
+		fmt.Println("Connected!")
+		return true
+	}
+	fmt.Println("Connection failed")
+	return false
+}
+func testBootup(dbSuccess, paymentSuccess bool) {
+	shouldConnectToDB = dbSuccess
+	shouldConnectToPaymentProvider = paymentSuccess
+	bootup()
+	fmt.Println("====================================")
+}
+
+func c3_l18() {
+	utils.PrintSectionStart("Chapter 3: Lesson 18 - Block Scope", false)
+	//(https://www.boot.dev/lessons/43edcbd3-d84b-432e-898c-62b1463aca34)
+	fmt.Println(`Go is 'block-scoped' which means vars declared in a block are only accessible there
+and any nested blocks. There's also package scope but that will be in a future chapter.`)
+	fmt.Println()
+
+	email := "joebobksmith@joebob.com"
+	fmt.Printf("Splitting %s\n", email)
+	user, domain := splitEmail(email)
+	fmt.Printf("username: [ %s ] , domain: [ %s ]\n", user, domain)
+
+	utils.PrintSectionEnd(false)
+}
+
+// splitEmail demonstrates block-scope by accessing username and domain
+//
+//	inside of a nested block in this functions scope.
+//	The function is initially presented with the username and domain initialized in their own block,
+//	and this threw an error because they weren't in block-scope with the if statement's block body
+func splitEmail(email string) (string, string) {
+	username, domain := "", ""
+	for i, r := range email {
+		if r == '@' {
+			username = email[:i]
+			domain = email[i+1:]
+			break
+		}
+	}
+	return username, domain
+}
+
+func c3_l19() {
+	utils.PrintSectionStart("Chapter 3: Lesson 19 - Processing Orders", false)
+	//(https://www.boot.dev/lessons/43edcbd3-d84b-432e-898c-62b1463aca34)
+	fmt.Println(`This was an exercise that required making conditional determinations based
+on the returns of a couple functions - checking if the user has enough money to buy an item
+and that the item quantity they want to buy are in stock.`)
+	fmt.Println()
+
+	fmt.Println("Placing order for product#1 (x2) with balance=226.95")
+	success, balance := placeOrder("1", 2, 226.95) // order 2 product #1 with $226.95 balance
+	fmt.Printf("Transaction %s\n", utils.Ternary(success, "SUCCESSFUL", "FAILED"))
+	fmt.Printf("Remaining balance: %.2f\n", balance)
+
+	utils.PrintSectionEnd(false)
+}
+func placeOrder(productID string, quantity int, accountBalance float64) (bool, float64) {
+	if quantity > amountInStock(productID) || accountBalance < calcPrice(productID, quantity) {
+		return false, accountBalance
+	}
+	return true, accountBalance - calcPrice(productID, quantity)
+}
+func calcPrice(productID string, quantity int) float64 {
+	return priceList(productID) * float64(quantity)
+}
+func priceList(productID string) float64 {
+	if productID == "1" {
+		return 1.50
+	} else if productID == "2" {
+		return 2.25
+	} else if productID == "3" {
+		return 3.00
+	} else if productID == "4" {
+		return 1.00
+	} else if productID == "5" {
+		return 2.50
+	} else if productID == "6" {
+		return 8.99
+	} else if productID == "7" {
+		return 22.50
+	} else if productID == "8" {
+		return 50.00
+	} else if productID == "9" {
+		return 999.99
+	} else {
+		return 0.00
+	}
+}
+func amountInStock(productID string) int {
+	if productID == "1" {
+		return 11
+	} else if productID == "2" {
+		return 25
+	} else if productID == "3" {
+		return 4
+	} else if productID == "4" {
+		return 6
+	} else if productID == "5" {
+		return 50
+	} else if productID == "6" {
+		return 2
+	} else if productID == "7" {
+		return 0
+	} else if productID == "8" {
+		return 99
+	} else if productID == "9" {
+		return 1
+	} else {
+		return 0
+	}
 }
