@@ -1,6 +1,7 @@
 package learnGo
 
 import (
+	"errors"
 	"fmt"
 	"going/internal/utils"
 )
@@ -30,6 +31,8 @@ func runChapter3Lessons() {
 	c3_l17() // defer
 	c3_l18() // block scope
 	c3_l19() // 'Processing Orders'
+	c3_l20() // closures
+	c3_l21() // currying
 }
 
 func c3_l1() {
@@ -437,7 +440,7 @@ func splitEmail(email string) (string, string) {
 
 func c3_l19() {
 	utils.PrintSectionStart("Chapter 3: Lesson 19 - Processing Orders", false)
-	//(https://www.boot.dev/lessons/43edcbd3-d84b-432e-898c-62b1463aca34)
+	//(https://www.boot.dev/lessons/09628165-d910-4344-b2bf-c9145d6e6317)
 	fmt.Println(`This was an exercise that required making conditional determinations based
 on the returns of a couple functions - checking if the user has enough money to buy an item
 and that the item quantity they want to buy are in stock.`)
@@ -504,4 +507,83 @@ func amountInStock(productID string) int {
 	} else {
 		return 0
 	}
+}
+
+func c3_l20() {
+	utils.PrintSectionStart("Chapter 3: Lesson 20 - Closures", false)
+	//(https://www.boot.dev/lessons/f2c926e4-4e10-40d3-bffb-11683a8c3c1f)
+	fmt.Println(`A closure is a function that references variables from outside its own body.
+Here we used a closure to aggregate a sum across multiple operations. The running total
+is kept up and modified within the 'adder' function`)
+	fmt.Println()
+
+	summation := adder()
+	fmt.Println("Starting with 0...")
+	fmt.Printf("+3 = %d\n", summation(3))
+	fmt.Printf("+4 = %d\n", summation(4))
+	fmt.Printf("+42 = %d\n", summation(42))
+	fmt.Printf("+7 = %d\n", summation(7))
+
+	utils.PrintSectionEnd(false)
+}
+func adder() func(int) int {
+	sum := 0
+	return func(toAdd int) int {
+		sum += toAdd
+		return sum
+	}
+}
+
+func c3_l21() {
+	utils.PrintSectionStart("Chapter 3: Lesson 21 - Currying", false)
+	//(https://www.boot.dev/lessons/00e74458-f6e2-4f14-bc04-5ad5112551d6)
+	fmt.Println(`Currying is a functional programming concept that allows a function
+with multiple arguments to be transformed into a sequence of functions, each taking a single argument.
+
+Here we use a getLogger func that returns a func which formats the two strings it gets in a specific way
+and prints the result to the console...`)
+	fmt.Println()
+
+	dbErrors := []error{
+		errors.New("out of memory"),
+		errors.New("cpu is pegged"),
+		errors.New("networking issue"),
+		errors.New("invalid syntax"),
+	}
+	testLogger("Error on database server", dbErrors, colonDelimit)
+
+	mailErrors := []error{
+		errors.New("email too large"),
+		errors.New("non alphanumeric symbols found"),
+	}
+	testLogger("Error on mail server", mailErrors, commaDelimit)
+
+	utils.PrintSectionEnd(false)
+}
+
+// getLogger takes a function that formats two strings into
+// a single string and returns a function that formats two strings but prints
+// the result instead of returning it
+func getLogger(formatter func(string, string) string) func(string, string) {
+	return func(a, b string) {
+		fmt.Println(formatter(a, b))
+	}
+}
+func testLogger(first string, errors []error, formatter func(string, string) string) {
+	defer fmt.Println("====================================")
+	logger := getLogger(formatter)
+	fmt.Println("Logs:")
+	for _, err := range errors {
+		logger(first, err.Error())
+	}
+}
+
+// used as a formatter for c3_l21
+func colonDelimit(first, second string) string {
+	return first + ": " + second
+}
+
+// used as a formatter for c3_l21
+func commaDelimit(first, second string) string {
+	return first + ", " + second
 }

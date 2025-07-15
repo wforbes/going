@@ -3,6 +3,7 @@ package learnGo
 
 import (
 	"fmt"
+	"slices"
 	"testing"
 )
 
@@ -361,6 +362,67 @@ Expecting:  (%v, %.2f)
 Actual:     (%v, %.2f)
 Pass
 `, test.productID, test.quantity, test.accountBalance, test.expected_1, test.expected_2, output_1, output_2)
+		}
+	}
+
+	fmt.Println("---------------------------------")
+	fmt.Printf("%d passed, %d failed\n", passCount, failCount)
+}
+
+func Test_c3_l20(t *testing.T) {
+	type testCase struct {
+		input    []int
+		expected []int
+	}
+
+	testCases := []testCase{
+		{
+			input:    []int{1, 2, 3},
+			expected: []int{1, 3, 6},
+		},
+		{
+			input:    []int{1, 2, 3, 4, 5},
+			expected: []int{1, 3, 6, 10, 15},
+		},
+		{
+			input:    []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+			expected: []int{1, 3, 6, 10, 15, 21, 28, 36, 45, 55},
+		},
+		{
+			input:    []int{0, 0, 0, 0},
+			expected: []int{0, 0, 0, 0},
+		},
+		{
+			input:    []int{5, -3, -1},
+			expected: []int{5, 2, 1},
+		},
+	}
+
+	passCount := 0
+	failCount := 0
+
+	for _, test := range testCases {
+		f := adder()
+		results := make([]int, len(test.input))
+		for i, v := range test.input {
+			results[i] = f(v)
+		}
+		if !slices.Equal(results, test.expected) {
+			failCount++
+			t.Errorf(`---------------------------------
+Inputs:     %v
+Expecting:  %v
+Actual:     %v
+Fail
+`, test.input, test.expected, results)
+		} else {
+			passCount++
+			fmt.Printf(`---------------------------------
+Inputs:     %v
+Expecting:  %v
+Actual:     %v
+Pass
+`, test.input, test.expected, results)
 		}
 	}
 
