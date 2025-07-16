@@ -1,3 +1,8 @@
+// following along with youtube video
+//
+//	"Learn GO Fast: Full Tutorial"
+//	https://www.youtube.com/watch?v=8uiZC0l4Ajw
+//	This file includes content from 35:18 - 40:05
 package main
 
 import "fmt"
