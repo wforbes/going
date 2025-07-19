@@ -3,7 +3,7 @@
 //	"Learn GO Fast: Full Tutorial"
 //	https://www.youtube.com/watch?v=8uiZC0l4Ajw
 //	This file includes content from 47:10 - 52:50
-package main
+package learnGoFast
 
 import (
 	"fmt"
@@ -19,7 +19,7 @@ var MAX_TOFU_PRICE float32 = 8
 //   - they're thread safe, we avoid data races when reading and writing from memory
 //   - we can listen for when data is added or removed from a channel and we can
 //     block code execution until one of these events happen
-func main() {
+func RunT9() {
 	demoSimpleChannel()
 	demoLoopedChannel()
 	demoBufferedChannel()

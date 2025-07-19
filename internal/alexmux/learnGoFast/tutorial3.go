@@ -3,14 +3,14 @@
 //	"Learn GO Fast: Full Tutorial"
 //	https://www.youtube.com/watch?v=8uiZC0l4Ajw
 //	This file includes content from 13:13 - 19:30
-package main
+package learnGoFast
 
 import (
 	"errors"
 	"fmt"
 )
 
-func main() {
+func RunT3() {
 	var printValue string = "Hello World"
 	printMe(printValue)
 

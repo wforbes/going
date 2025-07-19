@@ -4,8 +4,8 @@ import (
 	"errors"
 	"net/http"
 
-	"going/api"
-	"going/internal/tools"
+	"going/internal/alexmux/learnGoFast/api"
+	"going/internal/alexmux/learnGoFast/tools"
 
 	log "github.com/sirupsen/logrus"
 )

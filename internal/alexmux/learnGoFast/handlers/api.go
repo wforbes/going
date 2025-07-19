@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"going/internal/middleware"
+	"going/internal/alexmux/learnGoFast/middleware"
 
 	"github.com/go-chi/chi"
 	chimiddle "github.com/go-chi/chi/middleware"

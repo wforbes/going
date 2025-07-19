@@ -1,8 +1,4 @@
-// following along with youtube video
-//
-//	"Learn GO Fast: Full Tutorial"
-//	https://www.youtube.com/watch?v=8uiZC0l4Ajw
-package main
+package learnGoFast
 
 import (
 	"fmt"
@@ -10,7 +6,7 @@ import (
 	"unsafe"
 )
 
-func main() {
+func RunT2() {
 	var intNum int = 9223372036854775807 // 'int' defaults to the CPU architecture. Mines 64-bit CPU so this is a int64
 	// 9.22 billion ^ is the largest int64 value
 	fmt.Println("Max default int size:", intNum)
@@ -102,5 +98,4 @@ conform to any whitespace within the bounds of the backticks`
 
 	// VIDEO TIMESTAMP 13:13 ~
 	// Continued in tutorial_3 folder of this project
-
 }

@@ -3,7 +3,7 @@
 //	"Learn GO Fast: Full Tutorial"
 //	https://www.youtube.com/watch?v=8uiZC0l4Ajw
 //	This file includes content from 40:05 - 47:10
-package main
+package learnGoFast
 
 import (
 	"fmt"
@@ -24,7 +24,7 @@ func cleanUpResults() {
 var m = sync.Mutex{}
 var rwm = sync.RWMutex{}
 
-func main() {
+func RunT8() {
 	// Goroutine - A way to execute multiple functions
 	//	that run concurrently
 	demo1Sequential()
@@ -178,7 +178,7 @@ func dbCall5(i int) {
 	var delay float32 = 2000
 	time.Sleep(time.Duration(delay) * time.Millisecond)
 	save(dbData[i])
-	log()
+	log_t8()
 	wg.Done() // 5. call done on wait group when each operation is done
 }
 func save(result string) {
@@ -188,7 +188,7 @@ func save(result string) {
 	rwm.Unlock() // 4. unlock the mutex because this goroutine is done
 	// allowing others to obtain a lock
 }
-func log() {
+func log_t8() {
 	rwm.RLock() // 5. lock the mutex to read from it, blocking Lock() calls
 	fmt.Printf("The current results are: %v \n", results)
 	rwm.RUnlock() // 6. unlock the mutex from reading, allowing Lock() calls again
@@ -207,28 +207,28 @@ func log() {
 //	my guess is this is the result of garbage collection?
 func demo6PerfTest1() {
 	fmt.Println("Testing performance of scaling empty slept goroutines from 1k to 1mil")
-	perfTest(42, 1000, 2000)
+	perfTest_8(42, 1000, 2000)
 	for i := range 10 {
 		if i == 0 {
 			continue
 		}
-		perfTest(i, (i+1)*1000, 2000)
+		perfTest_8(i, (i+1)*1000, 2000)
 	}
 	for i := range 10 {
 		if i == 0 {
 			continue
 		}
-		perfTest(i, (i+1)*10000, 2000)
+		perfTest_8(i, (i+1)*10000, 2000)
 	}
 	for i := range 10 {
 		if i == 0 { // we already tested 100k in prev loop
 			continue
 		}
-		perfTest(i, (i+1)*100000, 2000)
+		perfTest_8(i, (i+1)*100000, 2000)
 	}
 
 }
-func perfTest(testNum int, iterations int, sleepTime float32) {
+func perfTest_8(testNum int, iterations int, sleepTime float32) {
 	fmt.Printf("PF%v - Iterations: [ %v ] - Sleep Time: [ %v ]\n", testNum, iterations, sleepTime)
 	t0 := time.Now()
 	for i := 0; i < iterations; i++ {
@@ -252,10 +252,10 @@ func dbCall6(sleepTime float32) {
 func demo7PerfTest2() {
 	fmt.Println("Testing performance of expensive goroutines, scaling quantity from 100 to 1k")
 	for i := range 10 {
-		perfTest2(i, (i+1)*100)
+		perfTest2_8(i, (i+1)*100)
 	}
 }
-func perfTest2(testNum int, iterations int) {
+func perfTest2_8(testNum int, iterations int) {
 	fmt.Printf("PF%v - Iterations: [ %v ] \n", testNum, iterations)
 	t0 := time.Now()
 	for i := 0; i < iterations; i++ {

@@ -3,7 +3,7 @@
 //	"Learn GO Fast: Full Tutorial"
 //	https://www.youtube.com/watch?v=8uiZC0l4Ajw
 //	This file includes content from 52:50 - 55:42
-package main
+package learnGoFast
 
 import (
 	"encoding/json"
@@ -11,7 +11,7 @@ import (
 	"os"
 )
 
-func main() {
+func RunT10() {
 	demoGenericFuncs()
 	demoAnyType()
 	demoUninferredGenerics()

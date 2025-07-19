@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"encoding/json"
-	"going/api"
-	"going/internal/tools"
+	"going/internal/alexmux/learnGoFast/api"
+	"going/internal/alexmux/learnGoFast/tools"
 	"net/http"
 
 	"github.com/gorilla/schema"

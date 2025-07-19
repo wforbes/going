@@ -3,7 +3,7 @@
 //	"Learn GO Fast: Full Tutorial"
 //	https://www.youtube.com/watch?v=8uiZC0l4Ajw
 //	This file includes content from 31:06 - 35:18
-package main
+package learnGoFast
 
 import "fmt"
 
@@ -12,7 +12,7 @@ type gasEngine struct {
 	gallons uint8
 }
 
-func main() {
+func RunT6() {
 	demoStructTypes()
 	demoAnonymousStructs()
 	demoStructMethods()

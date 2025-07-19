@@ -3,14 +3,14 @@
 //	"Learn GO Fast: Full Tutorial"
 //	https://www.youtube.com/watch?v=8uiZC0l4Ajw
 //	This file includes content from 26:35 - 31:06
-package main
+package learnGoFast
 
 import (
 	"fmt"
 	"strings"
 )
 
-func main() {
+func RunT5() {
 	demoStrings()
 	demoRunes()
 }

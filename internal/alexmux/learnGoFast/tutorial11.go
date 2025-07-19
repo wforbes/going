@@ -1,16 +1,16 @@
-package main
+package learnGoFast
 
 import (
 	"fmt"
 	"net/http"
 
-	"going/internal/handlers"
+	"going/internal/alexmux/learnGoFast/handlers"
 
 	"github.com/go-chi/chi"
 	log "github.com/sirupsen/logrus"
 )
 
-func main() {
+func runApi() {
 	log.SetReportCaller(true)
 	var r *chi.Mux = chi.NewRouter()
 	handlers.Handler(r)
