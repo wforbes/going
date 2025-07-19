@@ -88,11 +88,11 @@ type purchaseInfo struct {
 }
 
 func demoUninferredGenerics() {
-	var contacts []contactInfo = loadJSON[contactInfo]("./contactInfo.json")
+	var contacts []contactInfo = loadJSON[contactInfo]("./resources/alexmux/contactInfo.json")
 	// ^ here we have to specify the type we need returned with brackets in the func call
 	fmt.Printf("%+v \n", contacts)
 
-	var purchases []purchaseInfo = loadJSON[purchaseInfo]("./purchaseInfo.json")
+	var purchases []purchaseInfo = loadJSON[purchaseInfo]("./resources/alexmux/purchaseInfo.json")
 	fmt.Printf("%+v \n", purchases)
 }
 
