@@ -47,7 +47,9 @@ type screenTwoModel struct {
 
 func screenTwo() screenTwoModel {
 	s := spinner.New()
-	s.Spinner = spinner.Dot
+	//s.Spinner = spinner.Dot
+	//s.Spinner = spinner.Meter
+	s.Spinner = spinner.Moon
 	s.Style = lipgloss.NewStyle().Bold(true)
 	return screenTwoModel{
 		spinner: s,
@@ -81,7 +83,9 @@ func (m screenTwoModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m screenTwoModel) View() string {
-	str := fmt.Sprintf("\n   %s This is screen two...\n\n", m.spinner.View())
+	str := "This is screen two... \n"
+	str += fmt.Sprintf("\n   %s <-- Hey look a loading icon thingy!\n\n", m.spinner.View())
+
 	return str
 }
 
