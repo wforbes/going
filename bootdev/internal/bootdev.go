@@ -5,10 +5,21 @@ import (
 	"fmt"
 )
 
-type Chapter struct {
+type Lesson struct {
 	Number int
 	Title  string
 	Runner func()
+}
+
+func (l Lesson) RunLesson() {
+	l.Runner()
+}
+
+type Chapter struct {
+	Number  int
+	Title   string
+	Runner  func()
+	Lessons []Lesson
 }
 
 func (c Chapter) RunLessons() {

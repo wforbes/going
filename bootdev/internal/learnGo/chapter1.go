@@ -7,6 +7,7 @@ import (
 )
 
 func runChapter1Lessons() {
+	c1_l1()
 	c1_l2()
 	c1_l3()
 	c1_l4()
@@ -41,6 +42,12 @@ func runChapter1Lessons() {
 	c1_l21()
 	// lesson 22, 23, and 24 are just practice fixing bugs
 	c1_l25()
+}
+
+func c1_l1() {
+	utils.PrintSectionStart("Chapter 1: Lesson 1 - Learn Go (for Developers)", false)
+	fmt.Println("Starting Textio server...")
+	utils.PrintSectionEnd(false)
 }
 
 func c1_l2() {
