@@ -3,11 +3,10 @@ package main
 import (
 	bootdev "bootdev/internal"
 	"bootdev/internal/learnGo"
-	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"strconv"
-	"sync"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -315,115 +314,61 @@ func (m screenFourModel) View() string {
 	return s
 }
 
-// A message containing a line of output from the lesson.
-type lessonOutputChunkMsg string
+// A message to signal that the lesson's Runner has finished executing
+// and to carry its complete output.
+type lessonFinishedMsg struct {
+	output string
+}
 
-// A message to signal that the lesson's Runner has finished executing.
-type lessonStreamFinishedMsg struct{}
-
-// listenForLessonOutputCmd waits for the next line of output from the lesson's
-// runner and sends it to the Update loop.
-func listenForLessonOutputCmd(ch chan string) tea.Cmd {
+// runLessonCmd runs a lesson, captures its entire output, and returns it
+// in a single message after stdout has been restored.
+func runLessonCmd(runner func()) tea.Cmd {
 	return func() tea.Msg {
-		// Wait for a message on the channel. If the channel is closed,
-		// 'ok' will be false.
-		if output, ok := <-ch; ok {
-			return lessonOutputChunkMsg(output)
-		}
-		// If the channel is closed, it means the runner is finished.
-		return lessonStreamFinishedMsg{}
+		originalStdout := os.Stdout // grab stdout up to now
+		r, w, _ := os.Pipe()
+		os.Stdout = w
+		runner() // run the lessons func
+		w.Close()
+		output, _ := io.ReadAll(r) // read stdout into variable
+		os.Stdout = originalStdout // restore stdout to original state
+
+		return lessonFinishedMsg{output: string(output)}
 	}
 }
 
-func streamLessonOutput(runner func()) (chan string, tea.Cmd) {
-	ch := make(chan string)
-	var wg sync.WaitGroup
-
-	// The main goroutine (G1) will run the process.
-	go func() {
-		// When G1 is completely done, it will close the channel.
-		defer close(ch)
-
-		r, w, _ := os.Pipe()
-
-		// We have one goroutine (the reader) to wait for.
-		wg.Add(1)
-
-		// The reader goroutine (G2) reads from the pipe.
-		go func() {
-			// When G2 exits, signal that it's done.
-			defer wg.Done()
-			scanner := bufio.NewScanner(r)
-			for scanner.Scan() {
-				// Send the line of output to the channel.
-				ch <- scanner.Text()
-			}
-		}()
-
-		// The writer part, happening back in G1.
-		originalStdout := os.Stdout
-		os.Stdout = w
-
-		runner()
-
-		os.Stdout = originalStdout
-		// Close the writer end of the pipe. This will cause the reader's
-		// scanner to stop, which will terminate G2.
-		w.Close()
-
-		// Wait for the reader goroutine (G2) to finish completely.
-		// This prevents the race condition.
-		wg.Wait()
-	}()
-
-	return ch, listenForLessonOutputCmd(ch)
-}
-
 type screenFiveModel struct {
-	course      bootdev.Course
-	chapter     bootdev.Chapter
-	lesson      bootdev.Lesson
-	choices     []string
-	cursor      int
-	output      string
-	outputChan  chan string // To receive streaming output
-	isStreaming bool        // To track if the process is running
+	course    bootdev.Course
+	chapter   bootdev.Chapter
+	lesson    bootdev.Lesson
+	choices   []string
+	cursor    int
+	output    string // To store the captured output
+	isRunning bool   // To know when to show "Running..."
 }
 
 func screenFive(m screenFourModel) screenFiveModel {
 	return screenFiveModel{
-		course:      m.course,
-		chapter:     m.chapter,
-		lesson:      m.lesson,
-		choices:     []string{"Run Again", "Go Back"},
-		isStreaming: true, // It starts streaming immediately
+		course:    m.course,
+		chapter:   m.chapter,
+		lesson:    m.lesson,
+		choices:   []string{"Run Again", "Go Back"},
+		isRunning: true, // It starts running immediately
 	}
 }
 
 func (m screenFiveModel) Init() tea.Cmd {
-	// Start the streaming process.
-	var cmd tea.Cmd
-	m.outputChan, cmd = streamLessonOutput(m.lesson.Runner)
-	return cmd
+	return runLessonCmd(m.lesson.Runner)
 }
 
 func (m screenFiveModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
-	// A new line of output has arrived.
-	case lessonOutputChunkMsg:
-		m.output += string(msg) + "\n"
-		// Return the listener command again to wait for the next line.
-		return m, listenForLessonOutputCmd(m.outputChan)
-
-	// The stream has finished.
-	case lessonStreamFinishedMsg:
-		m.isStreaming = false
-		// No more commands are needed, we just wait for user input.
+	case lessonFinishedMsg:
+		m.output = msg.output
+		m.isRunning = false
 		return m, nil
 
 	case tea.KeyMsg:
-		// Don't process key presses while the lesson is running.
-		if m.isStreaming {
+		if m.isRunning {
 			return m, nil
 		}
 
@@ -441,17 +386,15 @@ func (m screenFiveModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter", " ":
 			switch m.choices[m.cursor] {
 			case "Run Again":
-				// Clear output and start a new stream.
+				// the lesson funcs run so fast
+				//	nothing appears to happen here
 				m.output = ""
-				m.isStreaming = true
-				var cmd tea.Cmd
-				m.outputChan, cmd = streamLessonOutput(m.lesson.Runner)
-				return m, cmd
+				m.isRunning = true
+				return m, runLessonCmd(m.lesson.Runner)
 			case "Go Back":
-				m2 := screenFour(screenThreeModel{
-					course:  m.course,
-					chapter: m.chapter,
-					choice:  m.lesson,
+				m2 := screenThree(screenTwoModel{
+					course: m.course,
+					choice: m.chapter,
 				})
 				return m2, m2.Init()
 			}
@@ -461,17 +404,14 @@ func (m screenFiveModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 func (m screenFiveModel) View() string {
 	s := fmt.Sprintf("Running Lesson: #%d - %s\n\n", m.lesson.Number, m.lesson.Title)
-
-	s += m.output
-
-	if m.isStreaming {
-		s += "...\n" // A subtle indicator that it's still running.
+	if m.isRunning {
+		s += "Running..."
+	} else {
+		s += m.output
 	}
-
 	s += "\n"
 
-	// Only show choices after the stream is finished.
-	if !m.isStreaming {
+	if !m.isRunning {
 		for i, choice := range m.choices {
 			cursor := " "
 			if m.cursor == i {
