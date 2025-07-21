@@ -85,6 +85,21 @@ var learnGoChapters = []bootdev.Chapter{
 				Title:  "Conditionals",
 				Runner: c2_l1,
 			},
+			{
+				Number: 2,
+				Title:  "The Initial Statement of an If Block",
+				Runner: c2_l2,
+			},
+			{
+				Number: 4,
+				Title:  "Switch",
+				Runner: c2_l4,
+			},
+			{
+				Number: 5,
+				Title:  "Calculate Balance",
+				Runner: c2_l5,
+			},
 		},
 	},
 	{
@@ -96,6 +111,71 @@ var learnGoChapters = []bootdev.Chapter{
 				Number: 1,
 				Title:  "Functions",
 				Runner: c3_l1,
+			},
+			{
+				Number: 2,
+				Title:  "Multiple Parameters",
+				Runner: c3_l2,
+			},
+			{
+				Number: 3,
+				Title:  "Unit Test Lessons",
+				Runner: c3_l3,
+			},
+			{
+				Number: 7,
+				Title:  "Passing Variables by Value",
+				Runner: c3_l7,
+			},
+			{
+				Number: 8,
+				Title:  "Ignoring Return Values",
+				Runner: c3_l8,
+			},
+			{
+				Number: 9,
+				Title:  "Named Return Values",
+				Runner: c3_l9,
+			},
+			{
+				Number: 12,
+				Title:  "Explicit Returns",
+				Runner: c3_l12,
+			},
+			{
+				Number: 15,
+				Title:  "Functions As Values",
+				Runner: c3_l15,
+			},
+			{
+				Number: 16,
+				Title:  "Anonymous Functions",
+				Runner: c3_l16,
+			},
+			{
+				Number: 17,
+				Title:  "Defer",
+				Runner: c3_l17,
+			},
+			{
+				Number: 18,
+				Title:  "Block Scope",
+				Runner: c3_l18,
+			},
+			{
+				Number: 19,
+				Title:  "Processing Orders",
+				Runner: c3_l19,
+			},
+			{
+				Number: 20,
+				Title:  "Closures",
+				Runner: c3_l20,
+			},
+			{
+				Number: 21,
+				Title:  "Currying",
+				Runner: c3_l21,
 			},
 		},
 	},
