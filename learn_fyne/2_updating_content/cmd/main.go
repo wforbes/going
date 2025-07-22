@@ -5,6 +5,7 @@ package main
 import (
 	"time"
 
+	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/widget"
 )
@@ -22,8 +23,12 @@ func main() {
 	updateTime(clock)
 	w.SetContent(clock)
 	go func() {
-		for range time.Tick(time.Second) {
-			updateTime(clock)
+		ticker := time.NewTicker(time.Second)
+		for range ticker.C {
+			fyne.Do(func() {
+				updateTime(clock)
+			})
+
 		}
 	}()
 
